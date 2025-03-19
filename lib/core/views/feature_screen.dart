@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:investment/core/config/app_color.dart';
+import 'package:investment/core/config/app_routes.dart';
+import 'package:investment/core/config/app_textstyle.dart';
 import 'package:investment/core/models/investment.dart';
 import 'package:investment/core/viewmodels/investment_viewmodel.dart';
+import 'package:investment/core/views/investment_card.dart';
 import 'package:investment/core/views/investment_detail_screen.dart';
 
 class FeatureScreen extends ConsumerStatefulWidget {
+  const FeatureScreen({super.key});
+
   @override
   _FeatureScreenState createState() => _FeatureScreenState();
 }
@@ -19,8 +26,12 @@ class _FeatureScreenState extends ConsumerState<FeatureScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Investment Opportunities"),
-        backgroundColor: Colors.blueAccent,
+        title: Text(
+          "Investment Opportunities",
+          style: AppTextStyles.medium(size: 20, color: AppColors.white),
+        ),
+        iconTheme: IconThemeData(color: AppColors.white),
+        backgroundColor: AppColors.app,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -32,6 +43,10 @@ class _FeatureScreenState extends ConsumerState<FeatureScreen> {
                 labelText: "Search Investments",
                 prefixIcon: Icon(Icons.search),
                 border: OutlineInputBorder(),
+              ),
+              style: AppTextStyles.regular(
+                size: 16,
+                color: AppColors.blackTitle,
               ),
               onChanged: (query) {
                 setState(() => _searchQuery = query.toLowerCase());
@@ -63,7 +78,12 @@ class _FeatureScreenState extends ConsumerState<FeatureScreen> {
                     itemCount: _filteredInvestments.length,
                     itemBuilder: (context, index) {
                       final investment = _filteredInvestments[index];
-                      return _investmentCard(context, investment);
+                      return investmentCard(context, investment, () {
+                        context.push(
+                          Navigation.investmentDetail.path,
+                          extra: {'investment': investment},
+                        );
+                      });
                     },
                   );
                 },
@@ -71,39 +91,6 @@ class _FeatureScreenState extends ConsumerState<FeatureScreen> {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  // Investment Card Widget
-  Widget _investmentCard(BuildContext context, Investment investment) {
-    return Card(
-      margin: EdgeInsets.symmetric(vertical: 8),
-      child: ListTile(
-        title: Text(
-          investment.name,
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(investment.description),
-            Text("ROI: ${investment.roi}%  •  Risk: ${investment.riskLevel}"),
-            Text("Duration: ${investment.duration}"),
-          ],
-        ),
-        trailing: Text(
-          "₹${investment.amount}",
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => InvestmentDetailScreen(investment),
-            ),
-          );
-        },
       ),
     );
   }

@@ -1,16 +1,92 @@
-# investment
+# Investment Dashboard & Feature Screen (Flutter)
 
-A new Flutter project.
+## Project Overview
 
-## Getting Started
+This Flutter project provides a Dashboard Screen and a Feature Screen to manage and display investment opportunities using Riverpod for state management, Dio for API calls, and Flutter Secure Storage for authentication.
 
-This project is a starting point for a Flutter application.
+## Features
 
-A few resources to get you started if this is your first Flutter project:
+### Dashboard Screen:
+- Displays a welcome message.
+- Shows investment summary (total investments, total value).
+- Fetches and lists top 3 investment opportunities.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Feature Screen:
+- Fetches investment opportunities from a simulated API.
+- Displays investment details (name, description, ROI, risk, duration, amount).- - Allows users to search and filter investments.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Tech Stack
+- Flutter (Dart)
+- State Management: Riverpod
+- Networking: Dio
+- Local Storage: Flutter Secure Storage
+- JSON Data Fetching: Mock API
+
+### Installation
+1. Clone this repository:
+
+git clone https://github.com/your-repo-name.git
+cd your-repo-name
+
+2. Install dependencies:
+
+flutter pub get
+
+3. Run the project:
+
+flutter run
+
+## Folder Structure
+lib/
+│── main.dart                  # Entry point of the application
+│── screens/
+│   ├── dashboard_screen.dart   # Dashboard UI & logic
+│   ├── feature_screen.dart     # Investment opportunities listing
+│── models/
+│   ├── investment.dart         # Investment model class
+│── providers/
+│   ├── dashboard_provider.dart # Riverpod provider for dashboard
+│   ├── feature_provider.dart   # Riverpod provider for investments
+│── services/
+│   ├── api_service.dart        # Handles API calls using Dio
+│── utils/
+│   ├── app_utility.dart        # Helper functions
+│── assets/
+│   ├── investment_data.json    # Sample investment data (for testing)
+
+## API Integration
+- Fetches data from investment_data.json.
+- Uses Dio for handling API calls.
+- Example API service function:
+
+class ApiService {
+  final Dio _dio = Dio();
+
+  Future<List<Investment>> fetchInvestmentData() async {
+    final jsonList = await fetchDataFromJson();
+    return jsonList.map((json) => Investment.fromJson(json)).toList();
+  }
+}
+
+## Riverpod State Management
+- DashboardProvider: Fetches and holds summary & top investments.
+- FeatureProvider: Fetches and filters the complete investment list.
+- Example provider usage:
+
+final dashboardProvider = FutureProvider<List<Investment>>((ref) async {
+  final apiService = ApiService();
+  return apiService.fetchInvestmentData();
+});
+
+## Secure Authentication
+- Implements biometric or PIN-based authentication using flutter_secure_storage.
+
+## Future Enhancements
+- Add search & filter functionality to the feature screen.
+- Implement investment details screen on tap.
+- Integrate real API endpoints.
+- Add unit & widget tests.
+
+## License
+
+This project is open-source under the MIT License.

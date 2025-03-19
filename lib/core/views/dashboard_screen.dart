@@ -11,6 +11,8 @@ import 'package:investment/core/views/custom_button.dart';
 class DashboardScreen extends ConsumerWidget {
   final String userName = "Keyur Akbari";
 
+  const DashboardScreen({super.key});
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final investmentData = ref.watch(dashboardProvider);
