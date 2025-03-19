@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:investment/core/config/app_color.dart';
+import 'package:investment/core/config/app_extension.dart';
 import 'package:investment/core/config/app_routes.dart';
 import 'package:investment/core/config/app_textstyle.dart';
 import 'package:investment/core/services/biometric_auth_service.dart';
@@ -36,9 +37,9 @@ class _LoginScreenState extends State<LoginScreen> {
     if (authenticated) {
       context.pushReplacementNamed(Navigation.dashboard.path);
     } else {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text('Authentication Failed')));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(context.localize('authentication_failed'))),
+      );
     }
   }
 
@@ -59,19 +60,22 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             SizedBox(height: 10),
             Text(
-              'Login with Biometrics',
+              context.localize('login_with_biometrics'),
               style: AppTextStyles.bold(size: 22, color: AppColors.blackTitle),
             ),
             SizedBox(height: 5),
             Text(
-              'Unlock your account with just a glance or a touch. Say goodbye to password and simplify your sign-in.',
+              context.localize('unlock_your_account'),
               style: AppTextStyles.regular(
                 size: 16,
                 color: AppColors.greyTitle,
               ),
             ),
             SizedBox(height: 100),
-            CustomButton(title: 'Login', onPressed: _loginWithBiometrics),
+            CustomButton(
+              title: context.localize('login_button'),
+              onPressed: _loginWithBiometrics,
+            ),
           ],
         ),
       ),

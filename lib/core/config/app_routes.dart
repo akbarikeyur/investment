@@ -37,9 +37,9 @@ enum Navigation {
   String get path {
     switch (this) {
       case login:
+        return "/";
         return "/LoginScreen";
       case dashboard:
-        return "/";
         return "/DashboardScreen";
       case feature:
         return "/FeatureScreen";

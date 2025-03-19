@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:investment/core/config/app_color.dart';
+import 'package:investment/core/config/app_extension.dart';
 import 'package:investment/core/config/app_routes.dart';
 import 'package:investment/core/config/app_textstyle.dart';
 import 'package:investment/core/models/investment.dart';
 import 'package:investment/core/viewmodels/dashboard_viewmodel.dart';
 import 'package:investment/core/views/custom_button.dart';
+import 'package:investment/core/views/investment_card.dart';
 
 class DashboardScreen extends ConsumerWidget {
   final String userName = "Keyur Akbari";
@@ -20,7 +22,7 @@ class DashboardScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Dashboard",
+          context.localize('dashboard'),
           style: AppTextStyles.medium(size: 20, color: AppColors.white),
         ),
         backgroundColor: AppColors.app,
@@ -31,8 +33,11 @@ class DashboardScreen extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Welcome, $userName!",
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              context.localize(
+                'welcome_message',
+                params: {'userName': userName},
+              ),
+              style: AppTextStyles.bold(size: 22),
             ),
             SizedBox(height: 10),
 
@@ -51,22 +56,19 @@ class DashboardScreen extends ConsumerWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           _summaryCard(
-                            "Total Investments",
+                            context.localize('total_investments'),
                             "${investments.length}",
                           ),
                           _summaryCard(
-                            "Total Value",
+                            context.localize('total_value'),
                             "₹${_calculateTotalInvestment(investments)}",
                           ),
                         ],
                       ),
                       SizedBox(height: 20),
                       Text(
-                        "Top Investment Opportunities",
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        context.localize('top_investment_opportunities'),
+                        style: AppTextStyles.bold(size: 18),
                       ),
                       SizedBox(height: 10),
                       Expanded(
@@ -74,7 +76,7 @@ class DashboardScreen extends ConsumerWidget {
                           itemCount: topInvestments.length,
                           itemBuilder: (context, index) {
                             final investment = topInvestments[index];
-                            return _investmentCard(investment);
+                            return investmentCard(context, investment, null);
                           },
                         ),
                       ),
@@ -84,7 +86,7 @@ class DashboardScreen extends ConsumerWidget {
               },
             ),
             CustomButton(
-              title: 'See all Investment',
+              title: context.localize('see_all_investment'),
               onPressed: () {
                 context.push(Navigation.feature.path);
               },
@@ -114,36 +116,6 @@ class DashboardScreen extends ConsumerWidget {
               ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget _investmentCard(Investment investment) {
-    return Card(
-      margin: EdgeInsets.symmetric(vertical: 8),
-      child: ListTile(
-        title: Text(investment.name, style: AppTextStyles.bold(size: 16)),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              investment.description,
-              style: AppTextStyles.regular(size: 16),
-            ),
-            Text(
-              "ROI: ${investment.roi}%  •  Risk: ${investment.riskLevel}",
-              style: AppTextStyles.regular(size: 16),
-            ),
-            Text(
-              "Duration: ${investment.duration}",
-              style: AppTextStyles.regular(size: 16),
-            ),
-          ],
-        ),
-        trailing: Text(
-          "₹${investment.amount}",
-          style: AppTextStyles.bold(size: 16),
         ),
       ),
     );

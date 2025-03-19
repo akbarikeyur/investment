@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:investment/core/config/app_color.dart';
+import 'package:investment/core/config/app_extension.dart';
 import 'package:investment/core/config/app_routes.dart';
 import 'package:investment/core/config/app_textstyle.dart';
 import 'package:investment/core/models/investment.dart';
 import 'package:investment/core/viewmodels/investment_viewmodel.dart';
 import 'package:investment/core/views/investment_card.dart';
-import 'package:investment/core/views/investment_detail_screen.dart';
 
 class FeatureScreen extends ConsumerStatefulWidget {
   const FeatureScreen({super.key});
@@ -27,7 +27,7 @@ class _FeatureScreenState extends ConsumerState<FeatureScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Investment Opportunities",
+          context.localize('investment_opportunities'),
           style: AppTextStyles.medium(size: 20, color: AppColors.white),
         ),
         iconTheme: IconThemeData(color: AppColors.white),
@@ -40,7 +40,7 @@ class _FeatureScreenState extends ConsumerState<FeatureScreen> {
             // Search Bar
             TextField(
               decoration: InputDecoration(
-                labelText: "Search Investments",
+                labelText: context.localize('search_investments'),
                 prefixIcon: Icon(Icons.search),
                 border: OutlineInputBorder(),
               ),
@@ -59,7 +59,18 @@ class _FeatureScreenState extends ConsumerState<FeatureScreen> {
               child: investmentData.when(
                 loading: () => Center(child: CircularProgressIndicator()),
                 error:
-                    (error, stackTrace) => Center(child: Text("Error: $error")),
+                    (error, stackTrace) => Center(
+                      child: Text(
+                        context.localize(
+                          'error',
+                          params: {"error": error.toString()},
+                        ),
+                        style: AppTextStyles.regular(
+                          size: 16,
+                          color: AppColors.blackTitle,
+                        ),
+                      ),
+                    ),
                 data: (investments) {
                   _filteredInvestments =
                       investments
@@ -71,7 +82,9 @@ class _FeatureScreenState extends ConsumerState<FeatureScreen> {
                           .toList();
 
                   if (_filteredInvestments.isEmpty) {
-                    return Center(child: Text("No investments found"));
+                    return Center(
+                      child: Text(context.localize('no_investments_found')),
+                    );
                   }
 
                   return ListView.builder(
