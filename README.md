@@ -24,19 +24,22 @@ This Flutter project provides a Dashboard Screen and a Feature Screen to manage 
 
 ### Installation
 1. Clone this repository:
-
-git clone https://github.com/your-repo-name.git
+<sub>
+git clone https://github.com/akbarikeyur/investment.git
 cd your-repo-name
+</sub>
 
 2. Install dependencies:
-
+<sub>
 flutter pub get
+</sub>
 
 3. Run the project:
 
-flutter run
+<sub>flutter run</sub>
 
 ## Folder Structure
+<sub>
 lib/
 │── main.dart                  # Entry point of the application
 │── screens/
@@ -53,12 +56,13 @@ lib/
 │   ├── app_utility.dart        # Helper functions
 │── assets/
 │   ├── investment_data.json    # Sample investment data (for testing)
+</sub>
 
 ## API Integration
 - Fetches data from investment_data.json.
 - Uses Dio for handling API calls.
 - Example API service function:
-
+<sub>
 class ApiService {
   final Dio _dio = Dio();
 
@@ -67,6 +71,7 @@ class ApiService {
     return jsonList.map((json) => Investment.fromJson(json)).toList();
   }
 }
+</sub>
 
 ## Riverpod State Management
 - DashboardProvider: Fetches and holds summary & top investments.
