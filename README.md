@@ -30,16 +30,18 @@ cd your-repo-name
 ```
 
 2. Install dependencies:
-<sub>
+```
 flutter pub get
-</sub>
+```
 
 3. Run the project:
 
-<sub>flutter run</sub>
+```
+flutter run
+```
 
 ## Folder Structure
-<sub>
+```
 lib/
 │── main.dart                  # Entry point of the application
 │── screens/
@@ -56,13 +58,13 @@ lib/
 │   ├── app_utility.dart        # Helper functions
 │── assets/
 │   ├── investment_data.json    # Sample investment data (for testing)
-</sub>
+```
 
 ## API Integration
 - Fetches data from investment_data.json.
 - Uses Dio for handling API calls.
 - Example API service function:
-<sub>
+```
 class ApiService {
   final Dio _dio = Dio();
 
@@ -71,17 +73,18 @@ class ApiService {
     return jsonList.map((json) => Investment.fromJson(json)).toList();
   }
 }
-</sub>
+```
 
 ## Riverpod State Management
 - DashboardProvider: Fetches and holds summary & top investments.
 - FeatureProvider: Fetches and filters the complete investment list.
 - Example provider usage:
-
+```
 final dashboardProvider = FutureProvider<List<Investment>>((ref) async {
   final apiService = ApiService();
   return apiService.fetchInvestmentData();
 });
+```
 
 ## Secure Authentication
 - Implements biometric or PIN-based authentication using flutter_secure_storage.
