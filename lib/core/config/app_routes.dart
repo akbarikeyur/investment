@@ -1,6 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:investment/core/views/dashboard_screen.dart';
-import 'package:investment/core/views/investment_screen.dart';
+import 'package:investment/core/views/feature_screen.dart';
 import 'package:investment/core/views/login_screen.dart';
 
 final appRouter = GoRouter(
@@ -14,8 +14,8 @@ final appRouter = GoRouter(
       builder: (context, state) => DashboardScreen(),
     ),
     GoRoute(
-      path: Navigation.investment.path,
-      builder: (context, state) => InvestmentScreen(),
+      path: Navigation.feature.path,
+      builder: (context, state) => FeatureScreen(),
     ),
   ],
 );
@@ -23,16 +23,17 @@ final appRouter = GoRouter(
 enum Navigation {
   login,
   dashboard,
-  investment;
+  feature;
 
   String get path {
     switch (this) {
       case login:
-        return "/";
+        return "/LoginScreen";
       case dashboard:
-        return "/dashboard";
-      case investment:
-        return "/investment";
+        return "/";
+        return "/DashboardScreen";
+      case feature:
+        return "/FeatureScreen";
     }
   }
 }
