@@ -24,10 +24,10 @@ This Flutter project provides a Dashboard Screen and a Feature Screen to manage 
 
 ### Installation
 1. Clone this repository:
-<sub>
+```
 git clone https://github.com/akbarikeyur/investment.git
 cd your-repo-name
-</sub>
+```
 
 2. Install dependencies:
 <sub>
