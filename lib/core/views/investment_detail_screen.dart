@@ -24,48 +24,55 @@ class InvestmentDetailScreen extends StatelessWidget {
         padding: const EdgeInsets.all(20.0),
         child: SizedBox(
           width: double.infinity,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(investment.name, style: AppTextStyles.bold(size: 22)),
-              SizedBox(height: 10),
-              Text(
-                investment.description,
-                style: AppTextStyles.regular(size: 16),
-              ),
-              SizedBox(height: 10),
-              Text(
-                context.localize(
-                  'roi',
-                  params: {'roi': investment.roi.toString()},
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(investment.name, style: AppTextStyles.bold(size: 22)),
+                SizedBox(height: 10),
+                Text(
+                  investment.description,
+                  style: AppTextStyles.regular(size: 16),
                 ),
-                style: AppTextStyles.regular(size: 16),
-              ),
-              SizedBox(height: 5),
-              Text(
-                context.localize(
-                  'risk',
-                  params: {'risk': investment.riskLevel},
+                SizedBox(height: 10),
+                Text(
+                  context.localize(
+                    'roi',
+                    params: {'roi': investment.roi.toString()},
+                  ),
+                  style: AppTextStyles.regular(size: 16),
                 ),
-                style: AppTextStyles.regular(size: 16),
-              ),
-              SizedBox(height: 5),
-              Text(
-                context.localize(
-                  'duration',
-                  params: {'duration': investment.duration},
+                SizedBox(height: 5),
+                Text(
+                  context.localize(
+                    'risk',
+                    params: {'risk': investment.riskLevel},
+                  ),
+                  style: AppTextStyles.regular(size: 16),
                 ),
-                style: AppTextStyles.regular(size: 16),
-              ),
-              SizedBox(height: 10),
-              Text(
-                context.localize(
-                  'investment_amount',
-                  params: {'amount': investment.amount.toString()},
+                SizedBox(height: 5),
+                Text(
+                  context.localize(
+                    'duration',
+                    params: {'duration': investment.duration},
+                  ),
+                  style: AppTextStyles.regular(size: 16),
                 ),
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-            ],
+                SizedBox(height: 10),
+                Text(
+                  context.localize(
+                    'investment_amount',
+                    params: {'amount': investment.amount.toString()},
+                  ),
+                  style: AppTextStyles.bold(size: 18),
+                ),
+                SizedBox(height: 10),
+                Text(
+                  investment.longDescription,
+                  style: AppTextStyles.regular(size: 16),
+                ),
+              ],
+            ),
           ),
         ),
       ),

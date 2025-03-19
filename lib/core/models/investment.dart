@@ -6,6 +6,7 @@ class Investment {
   final double roi;
   final String riskLevel;
   final String duration;
+  final String longDescription;
 
   Investment({
     required this.id,
@@ -15,6 +16,7 @@ class Investment {
     required this.roi,
     required this.riskLevel,
     required this.duration,
+    required this.longDescription,
   });
 
   factory Investment.fromJson(Map<String, dynamic> json) {
@@ -26,6 +28,7 @@ class Investment {
       roi: json["roi"].toDouble(),
       riskLevel: json["riskLevel"],
       duration: json["duration"],
+      longDescription: json["longDescription"],
     );
   }
 }

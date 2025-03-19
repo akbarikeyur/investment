@@ -6,6 +6,7 @@ import 'package:investment/core/config/app_extension.dart';
 import 'package:investment/core/config/app_routes.dart';
 import 'package:investment/core/config/app_textstyle.dart';
 import 'package:investment/core/models/investment.dart';
+import 'package:investment/core/viewmodels/auth_viewmodel.dart';
 import 'package:investment/core/viewmodels/dashboard_viewmodel.dart';
 import 'package:investment/core/views/custom_button.dart';
 import 'package:investment/core/views/investment_card.dart';
@@ -18,6 +19,7 @@ class DashboardScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final investmentData = ref.watch(dashboardProvider);
+    final authViewModel = ref.read(authViewModelProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -26,6 +28,17 @@ class DashboardScreen extends ConsumerWidget {
           style: AppTextStyles.medium(size: 20, color: AppColors.white),
         ),
         backgroundColor: AppColors.app,
+        actions: [
+          IconButton(
+            onPressed: () async {
+              await authViewModel.logout();
+              if (context.mounted) {
+                context.go(Navigation.login.path);
+              }
+            },
+            icon: Icon(Icons.logout, color: AppColors.white),
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),

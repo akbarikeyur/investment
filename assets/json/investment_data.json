@@ -1,75 +1,82 @@
 [
-    {
-      "id": "1",
-      "name": "Real Estate Fund",
-      "description": "Invest in premium real estate properties.",
-      "amount": 50000,
-      "roi": 7.5,
-      "riskLevel": "Medium",
-      "duration": "5 years"
-    },
-    {
-      "id": "2",
-      "name": "Tech Startup Equity",
-      "description": "Own shares in high-potential tech startups.",
-      "amount": 100000,
-      "roi": 12.0,
-      "riskLevel": "High",
-      "duration": "7 years"
-    },
-    {
-      "id": "3",
-      "name": "Government Bonds",
-      "description": "Low-risk bonds issued by the government.",
-      "amount": 20000,
-      "roi": 4.5,
-      "riskLevel": "Low",
-      "duration": "10 years"
-    },
-    {
-      "id": "4",
-      "name": "Cryptocurrency Portfolio",
-      "description": "Diversified investment in top cryptocurrencies.",
-      "amount": 75000,
-      "roi": 15.0,
-      "riskLevel": "Very High",
-      "duration": "5 years"
-    },
-    {
-      "id": "5",
-      "name": "Renewable Energy Fund",
-      "description": "Investment in solar and wind energy projects.",
-      "amount": 60000,
-      "roi": 8.0,
-      "riskLevel": "Medium",
-      "duration": "6 years"
-    },
-    {
-      "id": "6",
-      "name": "Index Fund",
-      "description": "Passive investment in the top 500 companies.",
-      "amount": 30000,
-      "roi": 6.5,
-      "riskLevel": "Low",
-      "duration": "10 years"
-    },
-    {
-      "id": "7",
-      "name": "Gold ETF",
-      "description": "Investment in gold through exchange-traded funds.",
-      "amount": 25000,
-      "roi": 5.0,
-      "riskLevel": "Low",
-      "duration": "3 years"
-    },
-    {
-      "id": "8",
-      "name": "Artificial Intelligence Fund",
-      "description": "Equity investment in AI-driven companies.",
-      "amount": 90000,
-      "roi": 10.5,
-      "riskLevel": "High",
-      "duration": "7 years"
-    }
-  ]
-  
+  {
+    "id": "1",
+    "name": "Real Estate Fund",
+    "description": "Invest in premium real estate properties.",
+    "amount": 50000,
+    "roi": 7.5,
+    "riskLevel": "Medium",
+    "duration": "5 years",
+    "longDescription": "The Real Estate Fund allows investors to diversify their portfolio by investing in a variety of premium real estate properties. These properties are carefully selected to ensure stable and consistent returns. The fund primarily focuses on commercial properties such as office buildings, retail centers, and residential complexes in high-demand areas. Real estate has historically been one of the best-performing asset classes, providing not only capital appreciation but also rental income. With a medium risk level, the Real Estate Fund offers an opportunity to grow wealth steadily over a 5-year horizon. The fund also emphasizes sustainability and energy-efficient developments, aiming to meet the increasing demand for eco-friendly buildings. Investors in this fund benefit from the expertise of seasoned real estate professionals who carefully monitor market trends and property values to ensure optimal returns. While the market can experience fluctuations, real estate remains a valuable hedge against inflation and market volatility."
+  },
+  {
+    "id": "2",
+    "name": "Tech Startup Equity",
+    "description": "Own shares in high-potential tech startups.",
+    "amount": 100000,
+    "roi": 12.0,
+    "riskLevel": "High",
+    "duration": "7 years",
+    "longDescription": "The Tech Startup Equity investment offers individuals the chance to own shares in some of the most promising and disruptive technology startups in the market today. By investing in early-stage companies with high growth potential, this fund targets the rapidly evolving tech sector, which includes areas like artificial intelligence, blockchain, fintech, and cybersecurity. While the returns can be substantial, the high-risk nature of this investment is due to the volatility and uncertainty of startup ventures. Many startups face challenges such as market competition, regulatory hurdles, and technological adoption, but the potential upside can be significant. This fund is designed for investors with a long-term outlook, as it is anticipated that it will take up to 7 years for these companies to mature and deliver substantial returns. Investors can benefit not only from potential equity growth but also from strategic partnerships that these startups may form with larger, more established tech giants. With a high level of risk comes the chance for exceptional rewards, making it an ideal choice for those who want to take part in the innovation-driven future."
+  },
+  {
+    "id": "3",
+    "name": "Government Bonds",
+    "description": "Low-risk bonds issued by the government.",
+    "amount": 20000,
+    "roi": 4.5,
+    "riskLevel": "Low",
+    "duration": "10 years",
+    "longDescription": "Government Bonds are one of the safest investment options available to investors, backed by the credit of the national government. These bonds are issued with the promise to pay back the principal amount along with interest after a fixed period, typically 10 years in this case. With a low-risk profile, government bonds are particularly attractive to conservative investors looking for steady, reliable returns over time. The returns from these bonds may not be as high as other investment options, but the risk of loss is minimal. The government bond market is considered one of the most secure places for investors to park their money, especially during times of economic uncertainty. With a guaranteed return on investment and a relatively low correlation to the stock market, these bonds offer stability and predictability. Government bonds are often used as a cornerstone in conservative investment portfolios, providing a hedge against market volatility and inflation."
+  },
+  {
+    "id": "4",
+    "name": "Cryptocurrency Portfolio",
+    "description": "Diversified in top cryptocurrencies.",
+    "amount": 75000,
+    "roi": 15.0,
+    "riskLevel": "Very High",
+    "duration": "5 years",
+    "longDescription": "The Cryptocurrency Portfolio offers an exciting and high-reward investment opportunity by diversifying across leading digital currencies such as Bitcoin, Ethereum, and other promising altcoins. As the world transitions towards a more digital economy, cryptocurrencies have gained popularity and shown the potential for significant returns. However, with these high returns come high risks. Cryptocurrencies are known for their volatility, often experiencing dramatic price fluctuations in short periods of time. As a result, this investment is classified as very high risk, making it suitable for investors who have a high tolerance for risk and a long-term perspective. The portfolio aims to mitigate risk through diversification, ensuring that investors are not overly exposed to the price movements of any single cryptocurrency. Over a 5-year horizon, this portfolio aims to capitalize on the growing adoption of blockchain technology and digital currencies. This is an ideal investment for those who are interested in the cutting edge of financial technology and are willing to take on significant risk for potentially substantial rewards."
+  },
+  {
+    "id": "5",
+    "name": "Renewable Energy Fund",
+    "description": "Investment in solar and wind energy projects.",
+    "amount": 60000,
+    "roi": 8.0,
+    "riskLevel": "Medium",
+    "duration": "6 years",
+    "longDescription": "The Renewable Energy Fund focuses on investments in the growing sector of clean energy, primarily in solar and wind energy projects. As the world shifts away from fossil fuels to more sustainable energy sources, this fund provides investors an opportunity to be part of the clean energy revolution. The renewable energy sector is expected to continue its rapid growth as governments and corporations aim to meet environmental targets and reduce carbon emissions. This fund offers medium risk, as the energy market is affected by factors like weather conditions, technological advancements, and regulatory changes. However, the fund’s focus on established, scalable projects provides a degree of stability and the potential for consistent returns. With a 6-year investment horizon, the fund aims to take advantage of global trends toward sustainability, which is expected to drive long-term growth in the sector. Investors in this fund are not only making a financial investment but also contributing to the future of a cleaner, more sustainable planet."
+  },
+  {
+    "id": "6",
+    "name": "Index Fund",
+    "description": "Passive investment in the top 500 companies.",
+    "amount": 30000,
+    "roi": 6.5,
+    "riskLevel": "Low",
+    "duration": "10 years",
+    "longDescription": "The Index Fund offers a passive investment strategy, allowing investors to gain exposure to the top 500 companies in the stock market. This fund tracks a broad, diversified index, typically the S&P 500, which includes a mix of large-cap companies across various sectors. By investing in this fund, investors gain access to a wide range of industries, from technology to healthcare, without needing to pick individual stocks. The low-risk profile of the Index Fund comes from its diversification, which reduces the impact of any single company’s performance on the overall fund. Historically, index funds have delivered consistent returns over the long term, making them a popular choice for investors seeking steady growth with minimal risk. The 10-year duration allows for the power of compounding to work, enabling the value of the investment to grow steadily. This is an ideal choice for conservative investors looking for long-term growth with relatively low volatility."
+  },
+  {
+    "id": "7",
+    "name": "Gold ETF",
+    "description": "Investment in gold through exchange-traded funds.",
+    "amount": 25000,
+    "roi": 5.0,
+    "riskLevel": "Low",
+    "duration": "3 years",
+    "longDescription": "The Gold ETF allows investors to gain exposure to the price movements of gold without having to physically buy and store the metal. Gold has long been considered a safe haven during times of economic uncertainty, making it an attractive option for conservative investors looking to hedge against inflation and market volatility. This investment offers a low-risk profile, as the value of gold tends to be less affected by stock market fluctuations. Over the 3-year duration, the fund aims to provide steady returns by tracking the performance of gold prices. The Gold ETF also provides liquidity, allowing investors to buy and sell shares easily, just like any other stock. Gold’s performance is often inversely correlated with the broader stock market, making it an effective portfolio diversifier. For those seeking a low-risk, defensive investment with potential for modest returns, the Gold ETF is a compelling option."
+  },
+  {
+    "id": "8",
+    "name": "Artificial Intelligence Fund",
+    "description": "Equity investment in AI-driven companies.",
+    "amount": 90000,
+    "roi": 10.5,
+    "riskLevel": "High",
+    "duration": "7 years",
+    "longDescription": "The Artificial Intelligence Fund focuses on investing in companies that are at the forefront of artificial intelligence (AI) and machine learning innovations. With applications spanning from autonomous vehicles to healthcare, AI is transforming industries and reshaping the way we live and work. This fund provides equity exposure to high-potential AI-driven companies that are developing cutting-edge technologies. The AI sector is characterized by rapid innovation and significant disruption, making it a high-risk but potentially high-reward investment. Over a 7-year period, the fund aims to capitalize on the exponential growth of AI technologies, which is expected to revolutionize many sectors. Investors in this fund are betting on the future of automation, data analytics, and intelligent systems, with the understanding that the path to success in AI can be unpredictable. The fund offers the potential for significant returns for those who are willing to accept the high volatility and uncertainty of the AI sector."
+  }
+]

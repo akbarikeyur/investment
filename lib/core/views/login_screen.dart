@@ -1,44 +1,75 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:investment/core/config/app_color.dart';
 import 'package:investment/core/config/app_extension.dart';
+import 'package:investment/core/config/app_input_decoration.dart';
 import 'package:investment/core/config/app_routes.dart';
 import 'package:investment/core/config/app_textstyle.dart';
 import 'package:investment/core/services/biometric_auth_service.dart';
+import 'package:investment/core/viewmodels/auth_viewmodel.dart';
 import 'package:investment/core/views/custom_button.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  ConsumerState<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends ConsumerState<LoginScreen> {
   final BiometricAuthService _biometricAuthService = BiometricAuthService();
+  final pinController = TextEditingController();
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    // _checkBiometricsLogin();
+    _checkBiometricsLogin();
   }
 
   void _checkBiometricsLogin() async {
-    bool _isAuthenticated = await _biometricAuthService.isUserAuthenticated();
-    if (_isAuthenticated) {
-      context.pushReplacementNamed(Navigation.dashboard.path);
+    final isAuthenticated = await _biometricAuthService.isUserAuthenticated();
+    if (isAuthenticated) {
+      if (mounted) {
+        context.pushReplacementNamed(Navigation.dashboard.path);
+      }
     }
   }
 
   void _loginWithBiometrics() async {
-    bool authenticated = await _biometricAuthService.authenticateUser();
+    final authenticated = await _biometricAuthService.authenticateUser();
     if (authenticated) {
-      context.pushReplacementNamed(Navigation.dashboard.path);
+      if (mounted) {
+        context.pushReplacementNamed(Navigation.dashboard.path);
+      }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(context.localize('authentication_failed'))),
+      );
+    }
+  }
+
+  void _loginWithPin() async {
+    final authViewModel = ref.read(authViewModelProvider);
+    final pin = pinController.text;
+
+    if (pin.length == 4) {
+      await authViewModel.login(pin);
+      final isAuthenticated = await authViewModel.isAuthenticated();
+      if (isAuthenticated) {
+        if (mounted) {
+          context.go(Navigation.dashboard.path);
+        }
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(context.localize('authentication_failed'))),
+        );
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Please enter a valid 4-digit PIN")),
       );
     }
   }
@@ -52,33 +83,75 @@ class _LoginScreenState extends State<LoginScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SvgPicture.asset(
-              'images/face_scan.svg',
-              width: 70,
-              height: 70,
-              colorFilter: ColorFilter.mode(AppColors.app, BlendMode.srcIn),
-            ),
-            SizedBox(height: 10),
-            Text(
-              context.localize('login_with_biometrics'),
-              style: AppTextStyles.bold(size: 22, color: AppColors.blackTitle),
-            ),
-            SizedBox(height: 5),
-            Text(
-              context.localize('unlock_your_account'),
-              style: AppTextStyles.regular(
-                size: 16,
-                color: AppColors.greyTitle,
+            Center(
+              child: Column(
+                children: [
+                  SvgPicture.asset(
+                    'images/app_logo.svg',
+                    width: 100,
+                    height: 100,
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    'I N V E S T M E N T',
+                    style: AppTextStyles.bold(size: 25, color: AppColors.app),
+                  ),
+                ],
               ),
             ),
-            SizedBox(height: 100),
+            const SizedBox(height: 50),
+            buildPinTextField(),
+            const SizedBox(height: 20),
             CustomButton(
               title: context.localize('login_button'),
+              onPressed: _loginWithPin, // Updated to login with PIN
+            ),
+            const SizedBox(height: 10),
+            CustomButton(
+              isOutlined: true,
+              icon: Icon(Icons.fingerprint, color: AppColors.app, size: 30),
+              borderColor: AppColors.app,
+              bgColor: AppColors.white,
+              textColor: AppColors.app,
+              title: context.localize('login_with_biometrics'),
               onPressed: _loginWithBiometrics,
             ),
+            const SizedBox(height: 50),
           ],
         ),
       ),
+    );
+  }
+
+  TextField buildPinTextField() {
+    return TextField(
+      controller: pinController,
+      maxLength: 4,
+      keyboardType: TextInputType.number,
+      textAlign: TextAlign.center,
+      style: const TextStyle(
+        fontSize: 24,
+        letterSpacing: 16,
+        fontWeight: FontWeight.bold,
+      ),
+      decoration: InputDecoration(
+        hintText: '••••',
+        hintStyle: TextStyle(
+          fontSize: 24,
+          letterSpacing: 16,
+          color: Colors.grey.shade400,
+        ),
+        counterText: '',
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8.0),
+          borderSide: const BorderSide(color: Colors.blueAccent, width: 2.0),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8.0),
+          borderSide: const BorderSide(color: Colors.blue, width: 2.5),
+        ),
+      ),
+      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
     );
   }
 }
