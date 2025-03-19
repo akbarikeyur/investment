@@ -1,0 +1,75 @@
+[
+    {
+      "id": "1",
+      "name": "Real Estate Fund",
+      "description": "Invest in premium real estate properties.",
+      "amount": 50000,
+      "roi": 7.5,
+      "riskLevel": "Medium",
+      "duration": "5 years"
+    },
+    {
+      "id": "2",
+      "name": "Tech Startup Equity",
+      "description": "Own shares in high-potential tech startups.",
+      "amount": 100000,
+      "roi": 12.0,
+      "riskLevel": "High",
+      "duration": "7 years"
+    },
+    {
+      "id": "3",
+      "name": "Government Bonds",
+      "description": "Low-risk bonds issued by the government.",
+      "amount": 20000,
+      "roi": 4.5,
+      "riskLevel": "Low",
+      "duration": "10 years"
+    },
+    {
+      "id": "4",
+      "name": "Cryptocurrency Portfolio",
+      "description": "Diversified investment in top cryptocurrencies.",
+      "amount": 75000,
+      "roi": 15.0,
+      "riskLevel": "Very High",
+      "duration": "5 years"
+    },
+    {
+      "id": "5",
+      "name": "Renewable Energy Fund",
+      "description": "Investment in solar and wind energy projects.",
+      "amount": 60000,
+      "roi": 8.0,
+      "riskLevel": "Medium",
+      "duration": "6 years"
+    },
+    {
+      "id": "6",
+      "name": "Index Fund",
+      "description": "Passive investment in the top 500 companies.",
+      "amount": 30000,
+      "roi": 6.5,
+      "riskLevel": "Low",
+      "duration": "10 years"
+    },
+    {
+      "id": "7",
+      "name": "Gold ETF",
+      "description": "Investment in gold through exchange-traded funds.",
+      "amount": 25000,
+      "roi": 5.0,
+      "riskLevel": "Low",
+      "duration": "3 years"
+    },
+    {
+      "id": "8",
+      "name": "Artificial Intelligence Fund",
+      "description": "Equity investment in AI-driven companies.",
+      "amount": 90000,
+      "roi": 10.5,
+      "riskLevel": "High",
+      "duration": "7 years"
+    }
+  ]
+  
