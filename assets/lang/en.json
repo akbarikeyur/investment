@@ -1,26 +1,28 @@
 {
     "dashboard": "Dashboard",
     "welcome_message": "Welcome, {userName}!",
+    "enter_valid_pin": "Please enter a valid 4-digit PIN",
     "investment_summary": "Investment Summary",
     "total_investments": "Total Investments",
     "total_value": "Total Value",
     "top_investment_opportunities": "Top Investment Opportunities",
     "see_all_investment": "See all Investment",
     "roi_risk": "ROI: {roi}%  •  Risk: {riskLevel}",
-    "roi": "ROI: {roi}%",
+    "roi": "ROI",
     "risk": "Risk Level",
-    "duration": "Duration: {duration}",
+    "duration": "Duration",
     "amount": "Amount",
     "investment_opportunities": "Investment Opportunities",
     "search_investments": "Search Investments",
     "error": "Error: {error}",
     "no_investments_found": "No investments found",
     "investment_details": "Investment Details",
-    "investment_amount": "Investment Amount: ₹{amount}",
+    "investment_amount": "Investment Amount:",
     "authentication_failed": "Authentication Failed",
     "login_with_biometrics": "Login with Biometrics",
     "unlock_your_account": "Unlock your account with just a glance or a touch. Say goodbye to password and simplify your sign-in.",
     "login_button": "Login",
-    "investment_document": "Investment Document"
+    "investment_document": "Investment Document",
+    "error_loading_investments": "Error loading investments: {error}"
   }
   

@@ -11,6 +11,8 @@ import 'package:investment/core/viewmodels/auth_viewmodel.dart';
 import 'package:investment/widgets/custom_button.dart';
 import 'package:investment/widgets/custom_textfield.dart';
 
+/// LoginScreen handles user authentication using PIN or biometrics.
+/// Utilizes Riverpod for state management.
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
 
@@ -20,47 +22,59 @@ class LoginScreen extends ConsumerStatefulWidget {
 
 class _LoginScreenState extends ConsumerState<LoginScreen> {
   final BiometricAuthService _biometricAuthService = BiometricAuthService();
-  final pinController = TextEditingController();
+  final TextEditingController pinController = TextEditingController();
 
   @override
-  void initState() {
-    super.initState();
+  void dispose() {
+    pinController.dispose();
+    super.dispose();
   }
 
-  void _loginWithBiometrics() async {
-    final authenticated = await _biometricAuthService.authenticateUser();
-    if (authenticated) {
-      if (mounted) {
+  /// Authenticates the user using biometric authentication.
+  Future<void> _loginWithBiometrics() async {
+    try {
+      final authenticated = await _biometricAuthService.authenticateUser();
+      if (authenticated && mounted) {
         context.go(Navigation.dashboard.path);
+      } else {
+        _showSnackBar(context.localize('authentication_failed'));
       }
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(context.localize('authentication_failed'))),
-      );
+    } catch (e) {
+      debugPrint("Biometric Authentication Error: $e");
+      _showSnackBar(context.localize('authentication_failed'));
     }
   }
 
-  void _loginWithPin() async {
+  /// Authenticates the user using a 4-digit PIN.
+  Future<void> _loginWithPin() async {
     final authViewModel = ref.read(authViewModelProvider);
-    final pin = pinController.text;
+    final pin = pinController.text.trim();
 
-    if (pin.length == 4) {
+    if (pin.length != 4) {
+      _showSnackBar(context.localize('enter_valid_pin'));
+      return;
+    }
+
+    try {
       await authViewModel.login(pin);
       final isAuthenticated = await authViewModel.isAuthenticated();
-      if (isAuthenticated) {
-        if (mounted) {
-          context.go(Navigation.dashboard.path);
-        }
+
+      if (isAuthenticated && mounted) {
+        context.go(Navigation.dashboard.path);
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(context.localize('authentication_failed'))),
-        );
+        _showSnackBar(context.localize('authentication_failed'));
       }
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Please enter a valid 4-digit PIN")),
-      );
+    } catch (e) {
+      debugPrint("PIN Authentication Error: $e");
+      _showSnackBar(context.localize('authentication_failed'));
     }
+  }
+
+  /// Shows a SnackBar with a given message.
+  void _showSnackBar(String message) {
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(message)));
   }
 
   @override
@@ -72,6 +86,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            /// App Logo and Title
             Center(
               child: Column(
                 children: [
@@ -89,13 +104,19 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               ),
             ),
             const SizedBox(height: 50),
+
+            /// PIN Input Field
             buildPinTextField(pinController),
             const SizedBox(height: 20),
+
+            /// Login Button (PIN)
             CustomButton(
               title: context.localize('login_button'),
-              onPressed: _loginWithPin, // Updated to login with PIN
+              onPressed: _loginWithPin,
             ),
             const SizedBox(height: 10),
+
+            /// Biometric Login Button
             CustomButton(
               isOutlined: true,
               icon: Icon(Icons.fingerprint, color: AppColors.app, size: 30),

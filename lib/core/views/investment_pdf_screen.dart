@@ -8,11 +8,12 @@ import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:flutter_pdfview/flutter_pdfview.dart';
+import 'package:share_plus/share_plus.dart';
 
 class InvestmentPDFScreen extends StatefulWidget {
   final Investment investment;
 
-  InvestmentPDFScreen({required this.investment});
+  const InvestmentPDFScreen({super.key, required this.investment});
 
   @override
   _InvestmentPDFScreenState createState() => _InvestmentPDFScreenState();
@@ -20,6 +21,7 @@ class InvestmentPDFScreen extends StatefulWidget {
 
 class _InvestmentPDFScreenState extends State<InvestmentPDFScreen> {
   String? pdfPath;
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -27,22 +29,22 @@ class _InvestmentPDFScreenState extends State<InvestmentPDFScreen> {
     _generatePDF(widget.investment);
   }
 
-  /// Function to generate PDF dynamically
+  /// Generates a PDF document and saves it to local storage
   Future<void> _generatePDF(Investment investment) async {
-    // Save PDF to a temporary directory
-    final dir = await getApplicationDocumentsDirectory();
-    final file = File("${dir.path}/investment_${investment.id}.pdf");
-    final isFileExist = await file.exists();
-    if (!isFileExist) {
+    try {
+      setState(() => isLoading = true);
+
+      final dir = await getApplicationDocumentsDirectory();
+      final file = File("${dir.path}/investment_${investment.id}.pdf");
+
       final pdf = pw.Document();
 
-      // Define content
       pdf.addPage(
         pw.Page(
           pageFormat: PdfPageFormat.a4,
           build: (pw.Context context) {
             return pw.Padding(
-              padding: pw.EdgeInsets.all(16),
+              padding: const pw.EdgeInsets.all(16),
               child: pw.Column(
                 crossAxisAlignment: pw.CrossAxisAlignment.start,
                 children: [
@@ -54,30 +56,12 @@ class _InvestmentPDFScreenState extends State<InvestmentPDFScreen> {
                     ),
                   ),
                   pw.SizedBox(height: 10),
-                  pw.Text(
-                    "Name: ${investment.name}",
-                    style: pw.TextStyle(fontSize: 18),
-                  ),
-                  pw.Text(
-                    "Description: ${investment.description}",
-                    style: pw.TextStyle(fontSize: 14),
-                  ),
-                  pw.Text(
-                    "ROI: ${investment.roi}%",
-                    style: pw.TextStyle(fontSize: 14),
-                  ),
-                  pw.Text(
-                    "Risk Level: ${investment.riskLevel}",
-                    style: pw.TextStyle(fontSize: 14),
-                  ),
-                  pw.Text(
-                    "Duration: ${investment.duration}",
-                    style: pw.TextStyle(fontSize: 14),
-                  ),
-                  pw.Text(
-                    "Amount: ₹${investment.amount}",
-                    style: pw.TextStyle(fontSize: 14),
-                  ),
+                  _pdfText("Name", investment.name),
+                  _pdfText("Description", investment.description),
+                  _pdfText("ROI", "${investment.roi}%"),
+                  _pdfText("Risk Level", investment.riskLevel.toString()),
+                  _pdfText("Duration", investment.duration.toString()),
+                  _pdfText("Amount", "₹${investment.amount}"),
                   pw.SizedBox(height: 10),
                   pw.Text(
                     "Detailed Information",
@@ -90,7 +74,7 @@ class _InvestmentPDFScreenState extends State<InvestmentPDFScreen> {
                   pw.Text(
                     investment.longDescription,
                     textAlign: pw.TextAlign.justify,
-                    style: pw.TextStyle(fontSize: 12),
+                    style: const pw.TextStyle(fontSize: 12),
                   ),
                 ],
               ),
@@ -100,11 +84,34 @@ class _InvestmentPDFScreenState extends State<InvestmentPDFScreen> {
       );
 
       await file.writeAsBytes(await pdf.save());
-    }
 
-    setState(() {
-      pdfPath = file.path;
-    });
+      setState(() {
+        pdfPath = file.path;
+        isLoading = false;
+      });
+    } catch (e) {
+      setState(() => isLoading = false);
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("Error generating PDF: $e")));
+    }
+  }
+
+  /// Helper method for consistent text formatting in the PDF
+  pw.Widget _pdfText(String title, String value) {
+    return pw.Padding(
+      padding: const pw.EdgeInsets.symmetric(vertical: 3),
+      child: pw.Text("$title: $value", style: const pw.TextStyle(fontSize: 14)),
+    );
+  }
+
+  /// Function to share the PDF using `shareXFiles`
+  void _sharePDF() {
+    if (pdfPath != null) {
+      Share.shareXFiles([
+        XFile(pdfPath!),
+      ], text: context.localize('investment_document'));
+    }
   }
 
   @override
@@ -115,12 +122,18 @@ class _InvestmentPDFScreenState extends State<InvestmentPDFScreen> {
           context.localize('investment_document'),
           style: AppTextStyles.medium(size: 20, color: AppColors.white),
         ),
-        iconTheme: IconThemeData(color: AppColors.white),
+        iconTheme: const IconThemeData(color: AppColors.white),
         backgroundColor: AppColors.app,
+        actions: [
+          if (pdfPath != null)
+            IconButton(icon: const Icon(Icons.download), onPressed: _sharePDF),
+        ],
       ),
       body:
-          pdfPath == null
-              ? Center(child: CircularProgressIndicator())
+          isLoading
+              ? const Center(child: CircularProgressIndicator())
+              : pdfPath == null
+              ? const Center(child: Text("Failed to generate PDF"))
               : PDFView(filePath: pdfPath!),
     );
   }
