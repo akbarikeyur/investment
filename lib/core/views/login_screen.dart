@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:investment/core/config/app_color.dart';
 import 'package:investment/core/config/app_extension.dart';
-import 'package:investment/core/config/app_input_decoration.dart';
 import 'package:investment/core/config/app_routes.dart';
 import 'package:investment/core/config/app_textstyle.dart';
 import 'package:investment/core/services/biometric_auth_service.dart';
 import 'package:investment/core/viewmodels/auth_viewmodel.dart';
-import 'package:investment/core/views/custom_button.dart';
+import 'package:investment/widgets/custom_button.dart';
+import 'package:investment/widgets/custom_textfield.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -26,23 +25,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   @override
   void initState() {
     super.initState();
-    _checkBiometricsLogin();
-  }
-
-  void _checkBiometricsLogin() async {
-    final isAuthenticated = await _biometricAuthService.isUserAuthenticated();
-    if (isAuthenticated) {
-      if (mounted) {
-        context.pushReplacementNamed(Navigation.dashboard.path);
-      }
-    }
   }
 
   void _loginWithBiometrics() async {
     final authenticated = await _biometricAuthService.authenticateUser();
     if (authenticated) {
       if (mounted) {
-        context.pushReplacementNamed(Navigation.dashboard.path);
+        context.go(Navigation.dashboard.path);
       }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -87,7 +76,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               child: Column(
                 children: [
                   SvgPicture.asset(
-                    'images/app_logo.svg',
+                    'assets/images/app_logo.svg',
                     width: 100,
                     height: 100,
                   ),
@@ -100,7 +89,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               ),
             ),
             const SizedBox(height: 50),
-            buildPinTextField(),
+            buildPinTextField(pinController),
             const SizedBox(height: 20),
             CustomButton(
               title: context.localize('login_button'),
@@ -120,38 +109,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           ],
         ),
       ),
-    );
-  }
-
-  TextField buildPinTextField() {
-    return TextField(
-      controller: pinController,
-      maxLength: 4,
-      keyboardType: TextInputType.number,
-      textAlign: TextAlign.center,
-      style: const TextStyle(
-        fontSize: 24,
-        letterSpacing: 16,
-        fontWeight: FontWeight.bold,
-      ),
-      decoration: InputDecoration(
-        hintText: '••••',
-        hintStyle: TextStyle(
-          fontSize: 24,
-          letterSpacing: 16,
-          color: Colors.grey.shade400,
-        ),
-        counterText: '',
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.0),
-          borderSide: const BorderSide(color: Colors.blueAccent, width: 2.0),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.0),
-          borderSide: const BorderSide(color: Colors.blue, width: 2.5),
-        ),
-      ),
-      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
     );
   }
 }

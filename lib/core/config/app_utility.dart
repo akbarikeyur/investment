@@ -6,7 +6,7 @@ import 'package:investment/core/models/investment.dart';
 Future<List<dynamic>> fetchDataFromJson() async {
   // Load the JSON file
   final String jsonString = await rootBundle.loadString(
-    'json/investment_data.json',
+    'assets/json/investment_data.json',
   );
 
   // Parse the JSON into a List

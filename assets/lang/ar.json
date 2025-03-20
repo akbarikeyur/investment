@@ -20,5 +20,6 @@
   "authentication_failed": "فشل التحقق",
   "login_with_biometrics": "تسجيل الدخول باستخدام البيانات الحيوية",
   "unlock_your_account": "افتح حسابك بمجرد نظرة أو لمسة. وداعًا لكلمات المرور وسهل عملية تسجيل الدخول.",
-  "login_button": "تسجيل الدخول"
+  "login_button": "تسجيل الدخول",
+  "investment_document": "مستند الاستثمار"
 }

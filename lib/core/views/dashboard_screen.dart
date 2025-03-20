@@ -8,7 +8,7 @@ import 'package:investment/core/config/app_textstyle.dart';
 import 'package:investment/core/models/investment.dart';
 import 'package:investment/core/viewmodels/auth_viewmodel.dart';
 import 'package:investment/core/viewmodels/dashboard_viewmodel.dart';
-import 'package:investment/core/views/custom_button.dart';
+import 'package:investment/widgets/custom_button.dart';
 import 'package:investment/core/views/investment_card.dart';
 
 class DashboardScreen extends ConsumerWidget {
@@ -118,9 +118,12 @@ class DashboardScreen extends ConsumerWidget {
           padding: const EdgeInsets.all(12.0),
           child: Column(
             children: [
-              Text(
-                value,
-                style: AppTextStyles.bold(size: 20, color: AppColors.white),
+              FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  value,
+                  style: AppTextStyles.bold(size: 20, color: AppColors.white),
+                ),
               ),
               SizedBox(height: 5),
               Text(

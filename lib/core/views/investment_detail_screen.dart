@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:investment/core/config/app_color.dart';
 import 'package:investment/core/config/app_extension.dart';
+import 'package:investment/core/config/app_routes.dart';
 import 'package:investment/core/config/app_textstyle.dart';
 import 'package:investment/core/models/investment.dart';
 
@@ -19,6 +21,17 @@ class InvestmentDetailScreen extends StatelessWidget {
         ),
         iconTheme: IconThemeData(color: AppColors.white),
         backgroundColor: AppColors.app,
+        actions: [
+          IconButton(
+            onPressed: () {
+              context.push(
+                Navigation.investmentPdf.path,
+                extra: {'investment': investment},
+              );
+            },
+            icon: Icon(Icons.picture_as_pdf, size: 20),
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),

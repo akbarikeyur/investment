@@ -9,18 +9,20 @@ class AuthViewModel extends ChangeNotifier {
 
   Future<void> login(String pin) async {
     if (pin == "2025") {
-      await _storageService.writeSecureData('token', 'secure_token');
+      await _storageService.writeSecureData('isAuthenticated', 'true');
       notifyListeners();
     }
   }
 
   Future<bool> isAuthenticated() async {
-    final token = await _storageService.readSecureData('token');
-    return token != null;
+    final isAuthenticated = await _storageService.readSecureData(
+      'isAuthenticated',
+    );
+    return isAuthenticated != null;
   }
 
   Future<void> logout() async {
-    await _storageService.deleteSecureData('token');
+    await _storageService.deleteSecureData('isAuthenticated');
     notifyListeners();
   }
 }
